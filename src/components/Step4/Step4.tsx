@@ -24,7 +24,12 @@ export default function Step4({ formData, prevStep, nextStep }: Step4Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const selectedPlan = plans.find((plan) => plan.id === formData.planId);
+  console.log("🔍 Step4 - formData:", formData);
+console.log("🔍 Step4 - formData.planId:", formData.planId);
+
+  const selectedPlan = plans.find((plan) =>{
+    
+    return plan.id === formData.planId});
   const selectedPlanName = selectedPlan ? selectedPlan.name : "Unknown Plan";
 
   const selectedAddonNames = formData.addons
