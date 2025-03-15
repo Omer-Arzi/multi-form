@@ -29,8 +29,8 @@ export default function Step3({
 }: Step3Props) {
   const { addons, loading, error } = useAppData();
   const [selectedAddons, setSelectedAddons] = useState<number[]>(
-    formData.addons || []
-  );
+    formData.addons ? formData.addons.map(Number) : []
+  );  
 
   useEffect(() => {
     updateFormData({ addons: selectedAddons });
