@@ -3,11 +3,13 @@ import MultiStepForm from "@/components/MultiStepForm/MultiStepForm";
 import { Container, CssBaseline, Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { pageStyle } from "./page.style";
+import { AppDataProvider } from "@/context/AppDataContext";
 
 export default function Home() {
   const theme = useTheme();
 
   return (
+    <AppDataProvider>
     <Container maxWidth="sm">
       <CssBaseline />
       <Box sx={pageStyle}>
@@ -17,5 +19,6 @@ export default function Home() {
         <MultiStepForm />
       </Box>
     </Container>
+    </AppDataProvider>
   );
 }
