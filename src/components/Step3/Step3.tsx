@@ -48,7 +48,6 @@ export default function Step3({
     nextStep();
   };
 
-  // ✅ Ensure the addons list updates dynamically
   const availableAddons = useMemo(() => addons || [], [addons]);
 
   if (loading) return <Typography>Loading add-ons...</Typography>;

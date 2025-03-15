@@ -60,18 +60,17 @@ export default function Step2({
   };
 
   const handleNext = () => {
-    updateFormData({
-      planId: selectedPlanId!,
-      billingCycle,
-    });
-    nextStep();
+    if (!selectedPlanId) return;
+      updateFormData({
+          planId: selectedPlanId,
+          billingCycle,
+      });
+      nextStep();
   };
 
   const filteredPlans = useMemo(() => {
     return plans.filter((plan) => plan.billing_cycle === billingCycle);
   }, [plans, billingCycle]);
-
-  const selectedPlan = filteredPlans.find((plan) => plan.id === selectedPlanId);
 
   return (
     <Box

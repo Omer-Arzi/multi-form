@@ -12,14 +12,15 @@ type FormData = Step1Data & Step2Data & Step3Data;
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
-    plan: 1,
+    planId: 0,
     billingCycle: "monthly",
-    addons: [] as string[],
+    addons: [],
   });
+  const [selectedPlanId, setSelectedPlanId] = useState(formData.planId || null);
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -27,13 +28,14 @@ export default function MultiStepForm() {
     setFormData((prev) => ({
       ...prev,
       ...data,
-      addons: data.addons ? data.addons.map(String) : prev.addons,
+      planId: data.planId !== undefined ? Number(data.planId) : prev.planId,
+      addons: data.addons ? data.addons.map(Number) : prev.addons,
     }));
   };
 
   useEffect(() => {
-    console.log(formData);
-  });
+    console.log("Current Form Data:", formData);
+}, [formData]);
 
   return (
     <Box>
@@ -48,7 +50,7 @@ export default function MultiStepForm() {
         <Step2
         formData={{
           ...formData,
-          planId: formData.plan,
+          planId: formData.planId,
           billingCycle: formData.billingCycle as "monthly" | "yearly",
         }}
           nextStep={nextStep}
@@ -68,7 +70,7 @@ export default function MultiStepForm() {
         <Step4
         formData={{
           ...formData,
-          planId: formData.plan,
+          planId: formData.planId,
           billingCycle: formData.billingCycle as "monthly" | "yearly",
           addons: formData.addons.map(Number),
         }}
