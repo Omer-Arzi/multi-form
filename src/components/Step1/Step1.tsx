@@ -35,8 +35,10 @@ export default function Step1({
     nextStep();
   };
 
-  const handleChange = <K extends keyof Step1Props["formData"]>(field: K) => (value: string) => {
-    updateFormData({ [field]: value } as Partial<Step1Props["formData"]>);
+  const handleChange =
+  <K extends keyof Step1Data>(field: K) =>
+  (value: string) => {
+    updateFormData({ ...formData, [field]: value } as Step1Data);
   };
 
   useEffect(() => {

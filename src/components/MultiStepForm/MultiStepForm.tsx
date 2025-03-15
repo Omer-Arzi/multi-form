@@ -16,7 +16,7 @@ export default function MultiStepForm() {
     name: "",
     email: "",
     phone: "",
-    plan: "",
+    plan: 1,
     billingCycle: "monthly",
     addons: [] as string[],
   });
@@ -27,6 +27,7 @@ export default function MultiStepForm() {
     setFormData((prev) => ({
       ...prev,
       ...data,
+      addons: data.addons ? data.addons.map(String) : prev.addons,
     }));
   };
 
@@ -45,7 +46,11 @@ export default function MultiStepForm() {
       )}
       {step === 2 && (
         <Step2
-          formData={formData}
+        formData={{
+          ...formData,
+          planId: formData.plan,
+          billingCycle: formData.billingCycle as "monthly" | "yearly",
+        }}
           nextStep={nextStep}
           prevStep={prevStep}
           updateFormData={updateFormData}
@@ -53,7 +58,7 @@ export default function MultiStepForm() {
       )}
       {step === 3 && (
         <Step3
-          formData={formData}
+          formData={{ ...formData, addons: formData.addons.map(Number) }} 
           nextStep={nextStep}
           prevStep={prevStep}
           updateFormData={updateFormData}
@@ -61,10 +66,16 @@ export default function MultiStepForm() {
       )}
       {step === 4 && (
         <Step4
-          formData={formData}
-          nextStep={nextStep}
-          prevStep={prevStep}
-        />
+        formData={{
+          ...formData,
+          planId: formData.plan,
+          billingCycle: formData.billingCycle as "monthly" | "yearly",
+          addons: formData.addons.map(Number),
+        }}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />
+      
       )}
       {step === 5 && <Step5 />}
     </Box>
